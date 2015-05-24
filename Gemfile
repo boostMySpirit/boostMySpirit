@@ -43,6 +43,10 @@ group :development, :test do
   gem 'spring'
 end
 
-
+#Gem ORM Mysql
 gem 'mysql2'
+#Gem Devise for Authentication
 gem 'devise'
+#Bootstrap front-end framework
+gem 'bootstrap-sass', '~> 3.3.4'
+
