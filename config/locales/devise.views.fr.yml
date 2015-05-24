@@ -44,8 +44,13 @@ fr:
       new:
         sign_in: Connexion
       user:
-        signed_in: Connecté
+        signed_in: Vous vous êtes bien connecté
+        signed_out: Vous vous êtes bien déconnecté
     shared:
+      sign_in_box:
+        title: Se connecter
+      sign_up_box:
+        title: S'inscrire pour commencer !
       links:
         didn_t_receive_confirmation_instructions: Vous n'avez pas reçu le mail de confirmation ?
         didn_t_receive_unlock_instructions: Vous n'avez pas reçu le mail de débloquage ?

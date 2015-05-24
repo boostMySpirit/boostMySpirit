@@ -1,24 +1,32 @@
 <h1><%= I18n.t('boost_my_spirit.welcome') %></h1>
 
-<h3><%= I18n.t('boost_my_spirit.set_your_goal') %> :</h3>
-
-<div class="container">
-  <div class="col-md-4">
-    <ul class="list-group">
-      <li class="list-group-item"><%= I18n.t('boost_my_spirit.list_objectives') %></li>
-      <li class="list-group-item"><%= I18n.t('boost_my_spirit.personal_relation_with_god') %></li>
-      <li class="list-group-item">Me sentir ben dans l’Eglise</li>
-      <li class="list-group-item">Etre un saint du XXI siècle</li>
-      <li class="list-group-item">Impressionner les autres avec ma vie de prière</li>
-      <li class="list-group-item">Améliorer ma vie de couple</li>
-      <li class="list-group-item">Choisir ma vocation</li>
-      <li class="list-group-item">Exemple pour mes enfants</li>
-      <li class="list-group-item">Me démarquer au travail</li>
-      <li class="list-group-item">M’aimer</li>
-    <li class="list-group-item">Mieux m’accepter</li>
-      <li class="list-group-item">Me prouver que je peux le faire</li>
-      <li class="list-group-item">Prolonger ma vie</li>
+<div class="row">
+  <div class="col-md-4 col-md-offset-1">
+    <h3><%= I18n.t('boost_my_spirit.set_your_goal') %> :</h3>
+    <ul>
+      <li><%= I18n.t('boost_my_spirit.list_objectives') %></li>
+      <li><%= I18n.t('boost_my_spirit.personal_relation_with_god') %></li>
+      <li>Me sentir ben dans l’Eglise</li>
+      <li>Etre un saint du XXI siècle</li>
+      <li>Impressionner les autres avec ma vie de prière</li>
+      <li>Améliorer ma vie de couple</li>
+      <li>Choisir ma vocation</li>
+      <li>Exemple pour mes enfants</li>
+      <li>Me démarquer au travail</li>
+      <li>M’aimer</li>
+      <li>Mieux m’accepter</li>
+      <li>Me prouver que je peux le faire</li>
+      <li>Prolonger ma vie</li>
     </ul>
+  </div>
+  <div class="col-md-5 col-md-offset-1">
+  <% if(user_signed_in?) %>
+  <% else %>
+    <%= render :file => "devise/registrations/new.html.erb" %>
+    ou <%= link_to('se connecter', new_user_session_path, {:class => ['btn', 'btn-default']}) %> si vous êtes déjà inscrit.
+  <% end %>
+  </div>
+  <div class="col-md-1">
   </div>
 </div>
       
