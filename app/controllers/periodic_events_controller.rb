@@ -66,7 +66,7 @@ class PeriodicEventsController < ApplicationController
     if(@prayAlone.new_record?)
       @prayAlone.start = Time.now
     end
-    ap @prayAlone
+#    logger.ap @prayAlone
     
     @prayAlonePeriodicities = {
       'Tous les jours' => {
@@ -104,7 +104,7 @@ class PeriodicEventsController < ApplicationController
 
       @prayAlone.start = prayAloneStart
       @prayAlone.periodicity = @prayAlonePeriodicity[:periodicity]
-      logger.ap @prayAlone
+#      logger.ap @prayAlone
       @prayAlone.save
 
       #Redirect back to reload controller
