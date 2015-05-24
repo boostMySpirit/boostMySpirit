@@ -11,16 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524124601) do
+ActiveRecord::Schema.define(version: 20150524222136) do
+
+  create_table "periodic_event_validates", force: :cascade do |t|
+    t.integer  "periodic_event_id", limit: 4
+    t.date     "date"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "periodic_event_validates", ["periodic_event_id"], name: "index_periodic_event_validates_on_periodic_event_id", using: :btree
 
   create_table "periodic_events", force: :cascade do |t|
-    t.string   "eventType",   limit: 255
     t.datetime "start"
     t.datetime "end"
     t.integer  "periodicity", limit: 4
     t.integer  "user_id",     limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "event_type",  limit: 4
   end
 
   add_index "periodic_events", ["user_id"], name: "index_periodic_events_on_user_id", using: :btree
@@ -44,5 +53,6 @@ ActiveRecord::Schema.define(version: 20150524124601) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "periodic_event_validates", "periodic_events"
   add_foreign_key "periodic_events", "users"
 end

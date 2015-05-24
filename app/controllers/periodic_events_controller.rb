@@ -1,10 +1,10 @@
 class PeriodicEventsController < ApplicationController
-  before_action :set_periodic_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_periodic_event, only: [:show, :edit, :update, :destroy, :validate_period]
 
   # GET /periodic_events
   # GET /periodic_events.json
   def index
-    @periodic_events = PeriodicEvent.all
+    @periodic_events = current_user.periodic_events.all
   end
 
   # GET /periodic_events/1
@@ -14,7 +14,7 @@ class PeriodicEventsController < ApplicationController
 
   # GET /periodic_events/new
   def new
-    @periodic_event = PeriodicEvent.new
+    @periodic_event = current_user.periodic_events.new
   end
 
   # GET /periodic_events/1/edit
@@ -24,7 +24,7 @@ class PeriodicEventsController < ApplicationController
   # POST /periodic_events
   # POST /periodic_events.json
   def create
-    @periodic_event = PeriodicEvent.new(periodic_event_params)
+    @periodic_event = current_user.periodic_events.new(periodic_event_params)
 
     respond_to do |format|
       if @periodic_event.save
@@ -61,8 +61,13 @@ class PeriodicEventsController < ApplicationController
     end
   end
 
+  def validate_period
+    @periodic_event.validate_period
+    redirect_to list_periodic_events_path and return    
+  end
+
   def boost
-    @prayAlone = current_user.periodic_events.find_or_initialize_by(:eventType => 'prayAlone')
+    @prayAlone = current_user.periodic_events.find_or_initialize_by(:event_type => 'pray_alone')
     if(@prayAlone.new_record?)
       @prayAlone.start = Time.now
     end
@@ -96,7 +101,6 @@ class PeriodicEventsController < ApplicationController
 
     if(request.post?)
       @prayAlonePeriodicity =  @prayAlonePeriodicities[params["prayAlone"]["Periodicity"]]
-      puts @prayAlonePeriodicity
       hour, minute = params["prayAlone"]["timepicker"].split(':')
       prayAloneStart = @prayAlonePeriodicity[:start].beginning_of_day + hour.to_i.hours + minute.to_i.minutes
       
@@ -108,18 +112,22 @@ class PeriodicEventsController < ApplicationController
       @prayAlone.save
 
       #Redirect back to reload controller
-      redirect_to(:back) and return
+      redirect_to list_periodic_events_path and return
     end
+  end
+
+  def list
+    @periodic_events = current_user.periodic_events.all.sort_by{|pe|pe.next_date}
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_periodic_event
-      @periodic_event = PeriodicEvent.find(params[:id])
+      @periodic_event = current_user.periodic_events.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def periodic_event_params
-      params.require(:periodic_event).permit(:eventType, :start, :end, :periodicity, :user_id)
+      params.require(:periodic_event).permit(:event_type, :start, :end, :periodicity, :user_id)
     end
 end

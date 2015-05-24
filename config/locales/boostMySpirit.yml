@@ -1,6 +1,8 @@
 fr:
   boost_my_spirit:
+    list_objectives: Lister les objectifs
+    periodic_events:
+      pray_alone: Je veux apprendre à prier seul
+    personal_relation_with_god: Avoir une relation personnelle avec Dieu
     set_your_goal: Fixez votre objectif, raisonnable et réaliste
     welcome: Bievenue sur Boot My Spirit
-    list_objectives: Lister les objectifs
-    personal_relation_with_god: Avoir une relation personnelle avec Dieu

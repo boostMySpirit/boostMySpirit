@@ -1,0 +1,66 @@
+<%= link_to('Modifier mes engagements', boost_periodic_events_path, {:class => ['btn', 'btn-primary', 'btn-lg']}) %>
+
+<h3>Boot My Spirit : Mes RDVs</h3>
+<div class="row">
+  <div class="col-md-6 col-md-offset-1">
+    <% @periodic_events.each do |periodic_event| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	<h3 class="panel-title"><%= I18n.t("boost_my_spirit.periodic_events.#{periodic_event.event_type}") %></h3>
+      </div>
+      <div class="panel-body">
+	<div class="row">
+	  <% logger.ap periodic_event.next_date %>
+	  <% if(periodic_event.next_date.to_date == Time.now.to_date) %>
+	    <div class="col-md-4">
+	      Rendez-vous aujourd'hui à <%= periodic_event.start.strftime('%H:%M') %>
+	    </div>
+	  <% else %>
+	    <div class="col-md-4">
+	      Prochain Rendez-vous dans
+	    </div>
+	    <div class="col-md-4">
+	      <%= time_ago_in_words(periodic_event.next_date) %>
+	    </div>
+	  <% end %>
+	  <% if(Time.now > periodic_event.next_date) %>
+	  <div class="col-md-2">
+	    <button type="button" class="btn btn-default btn-success">
+	      <% if(periodic_event.validatable_period?) %>
+	      <%= link_to("<span class='glyphicon glyphicon-ok'></span> Valider ce RDV".html_safe, validate_period_periodic_event_path(periodic_event)) %>
+	      <% else %>
+	      <span class='glyphicon glyphicon-ok'></span> Validé
+	      <% end %>
+	    </button>
+	  </div>
+	  <% end %>
+	</div>
+	<div class="row">
+	  <div class="col-md-4">
+	    Debut
+	  </div>
+	  <div class="col-md-4">
+	    <%= I18n.l(periodic_event.start.to_date) %>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-4">
+	    Horaire
+	  </div>
+	  <div class="col-md-4">
+	    <%= periodic_event.start.strftime('%H:%M') %>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-4">
+	    Periodicité
+	  </div>
+	  <div class="col-md-4">
+	    <%= distance_of_time_in_words(periodic_event.periodicity) %>
+	  </div>
+	</div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
