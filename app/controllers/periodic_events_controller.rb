@@ -61,6 +61,57 @@ class PeriodicEventsController < ApplicationController
     end
   end
 
+  def boost
+    @prayAlone = current_user.periodic_events.find_or_initialize_by(:eventType => 'prayAlone')
+    if(@prayAlone.new_record?)
+      @prayAlone.start = Time.now
+    end
+    ap @prayAlone
+    
+    @prayAlonePeriodicities = {
+      'Tous les jours' => {
+        :start => @prayAlone.start,
+        :periodicity => 1.day.to_i
+      }
+    }
+    if(@prayAlone.periodicity && @prayAlone.periodicity.seconds == 1.day)
+      @prayAlonePeriodicities['Tous les jours'][:selected] = true
+    end
+    
+    #Returns a hash. keys : english week days, values : locale week day
+    translatedDayNames = Hash[Date::DAYNAMES.zip I18n.t('date.day_names')]
+    
+    #Populate for each days of week. Time.now.next_week.beginning_of_week gives the date of the day next week
+    translatedDayNames.each do |dayName, dayNameLocalised|
+      key = "Tous les #{dayNameLocalised}"
+      @prayAlonePeriodicities[key] = {
+        :start => Time.now.next_week.beginning_of_week + Date::DAYNAMES.index(dayName).days - 1.day,
+        :periodicity => 1.week.to_i
+      }
+      if(@prayAlone.periodicity && @prayAlone.periodicity.seconds == 1.week && @prayAlone.start.strftime('%A') == dayName)
+        @prayAlonePeriodicities[key][:selected] = true
+      end
+    end
+
+
+    if(request.post?)
+      @prayAlonePeriodicity =  @prayAlonePeriodicities[params["prayAlone"]["Periodicity"]]
+      puts @prayAlonePeriodicity
+      hour, minute = params["prayAlone"]["timepicker"].split(':')
+      prayAloneStart = @prayAlonePeriodicity[:start].beginning_of_day + hour.to_i.hours + minute.to_i.minutes
+      
+
+
+      @prayAlone.start = prayAloneStart
+      @prayAlone.periodicity = @prayAlonePeriodicity[:periodicity]
+      logger.ap @prayAlone
+      @prayAlone.save
+
+      #Redirect back to reload controller
+      redirect_to(:back) and return
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_periodic_event

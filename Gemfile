@@ -50,4 +50,4 @@ gem 'devise'
 #Bootstrap front-end framework
 gem 'bootstrap-sass', '~> 3.3.4'
 
-#gem 'devise-bootstrap-views'
+#gem 'awesome_print'

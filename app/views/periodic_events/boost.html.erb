@@ -1,0 +1,67 @@
+<h1>Boot My Spirit : GO</h1>
+<br/>
+<div class="row">
+  <div class="col-md-6 col-md-offset-1">
+    <%= form_tag do %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	<h3 class="panel-title">Je veux apprendre à prier seul</h3>
+      </div>
+      <div class="panel-body">
+	<p><cite>"Vas dans ta chambre et prie ton père dans le secret"</cite></p>
+	<br/>
+	<div class="col-md-6">
+	  <h4>J'accepte de recevoir une alerte :</h4>
+	  <div class="form-group">
+	    <% @prayAlonePeriodicities.each do |prayAlonePeriodicity, prayAlonePeriodicityVal| %>
+	    <div>
+	      <% if(prayAlonePeriodicityVal[:selected]) %>
+	      <%= radio_button_tag("prayAlone[Periodicity]", prayAlonePeriodicity, prayAlonePeriodicity) %>
+	      <% else %>
+	      <%= radio_button_tag("prayAlone[Periodicity]", prayAlonePeriodicity) %>
+	      <% end %>
+              <%= label_tag "prayAlone_Periodicity_#{prayAlonePeriodicity}", prayAlonePeriodicity %>
+	    </div>
+	    <% end %>
+	  </div>
+	</div>
+	<div class="col-md-6">
+	  <h4>Je souhaite recevoir un  :</h4>
+	  <div class="form-group">
+	    <% ['SMS', 'Email'].each do |media| %>
+	      <% if(media == 'SMS') %>
+	      <%= radio_button_tag('prayAlone[media]', media, media) %>
+	      <% else %>
+	      <%= radio_button_tag('prayAlone[media]', media) %>
+	      <% end %>
+              <%= label_tag "prayAlone_media_#{media}", media %>
+            <% end %>
+
+	  </div>
+	  <div class="input-append bootstrap-timepicker">
+	    <%= label_tag "prayAloneMedia_Email", 'à' %>
+            <%= text_field_tag("prayAlone[timepicker]", @prayAlone.start.strftime('%H:%M'),  {:class => 'input-small'}) %>
+            <span class="add-on"><i class="icon-time"></i></span>
+          </div>	  
+          <script type="text/javascript">
+            $('#prayAlone_timepicker').timepicker({showMeridian: false});
+          </script>
+
+	  <h4>Je préfère m'aider de :</h4>
+	  <div class="form-group">
+            <% ["La liturgie des heures", "Une vie de Saint", "L'évangile", "Les frères chrétiens"].each do |aide| %>
+	      <div>
+		<%= radio_button_tag('prayAlone[aide]', aide) %>
+                <%= label_tag "prayAlone_aide_#{aide}", aide %>
+	      </div>
+            <% end %>
+	  </div>
+	</div>
+      </div>
+    </div>
+  <%= submit_tag "Je m'inscris !" %>
+  <% end %>
+  </div>
+</div>
+
+

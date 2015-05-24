@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   authenticate :user do
-    resources :periodic_events
+    resources :periodic_events do
+      collection do
+        get 'boost'
+        post 'boost'
+      end
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
