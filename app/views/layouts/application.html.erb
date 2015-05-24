@@ -19,9 +19,11 @@
 	  <% if(user_signed_in?) %>
 	    <p class="navbar-text"><%= current_user.email %></p>
 	  <% end %>
+	  <% if(user_signed_in?) %>
 	  <ul class="nav navbar-nav navbar-right">
             <li><%= link_to('Se déconnecter', destroy_user_session_path, :method => :delete) %></li>
 	  </ul>
+	  <% end %>
 	</div>
       </div>
     </nav>
