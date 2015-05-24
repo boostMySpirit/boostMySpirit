@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Periodic Events</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Eventtype</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Periodicity</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @periodic_events.each do |periodic_event| %>
+      <tr>
+        <td><%= periodic_event.eventType %></td>
+        <td><%= periodic_event.start %></td>
+        <td><%= periodic_event.end %></td>
+        <td><%= periodic_event.periodicity %></td>
+        <td><%= periodic_event.user %></td>
+        <td><%= link_to 'Show', periodic_event %></td>
+        <td><%= link_to 'Edit', edit_periodic_event_path(periodic_event) %></td>
+        <td><%= link_to 'Destroy', periodic_event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Periodic event', new_periodic_event_path %>

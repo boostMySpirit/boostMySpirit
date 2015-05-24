@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   authenticate :user do
-
+    resources :periodic_events
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
