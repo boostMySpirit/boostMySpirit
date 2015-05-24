@@ -3,6 +3,10 @@ fr:
     confirmations:
       new:
         resend_confirmation_instructions: Renvoyer les instructions de confirmation
+    failure:
+      user:
+        unauthenticated: Vous n'êtes pas connecté
+        not_found_in_database: Utilisateur non trouvé
     mailer:
       confirmation_instructions:
         action: Confirmer mon email
@@ -35,9 +39,12 @@ fr:
         we_need_your_current_password_to_confirm_your_changes: nous avons besoin de votre mot de passe actuel pour valider ces modifications
       new:
         sign_up: Inscription
+        signed_up: Vous êtes bien inscrit !
     sessions:
       new:
         sign_in: Connexion
+      user:
+        signed_in: Connecté
     shared:
       links:
         didn_t_receive_confirmation_instructions: Vous n'avez pas reçu le mail de confirmation ?
