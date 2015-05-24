@@ -40,6 +40,8 @@ fr:
       new:
         sign_up: Inscription
         signed_up: Vous êtes bien inscrit !
+      user:
+        signed_up: Vous êtes bien inscrit !
     sessions:
       new:
         sign_in: Connexion

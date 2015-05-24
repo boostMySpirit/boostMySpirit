@@ -3,9 +3,10 @@ fr:
   activerecord:
     attributes:
       user:
-        password: 'Mot de passe'
-        password_confirmation: 'Confirmation de Mot de passe'
-        remember_me: 'Se souvenir de moi'
+        password: Mot de passe
+        password_confirmation: Confirmation de Mot de passe
+        phone: Téléphone
+        remember_me: Se souvenir de moi
   date:
     abbr_day_names:
     - dim
