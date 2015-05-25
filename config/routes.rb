@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   authenticate :user do
-
     resources :periodic_events do
       member do
         get 'validate_period'
@@ -15,7 +14,10 @@ Rails.application.routes.draw do
         get 'list'
       end
     end
+  end
 
+  scope :format => true, :constraints => { :format => 'json' } do
+    get 'periodic_events_public/:user_id/', to: 'periodic_events#list'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

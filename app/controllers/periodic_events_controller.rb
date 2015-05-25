@@ -117,7 +117,11 @@ class PeriodicEventsController < ApplicationController
   end
 
   def list
-    @periodic_events = current_user.periodic_events.all.sort_by{|pe|pe.next_date}
+    if(!current_user && params[:user_id])
+      @periodic_events = PeriodicEvent.where(:user_id => params[:user_id]).sort_by{|pe|pe.next_date}
+    else
+      @periodic_events = current_user.periodic_events.all.sort_by{|pe|pe.next_date}
+    end
   end
 
   private
