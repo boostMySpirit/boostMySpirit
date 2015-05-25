@@ -16,9 +16,12 @@
 	  </a>
 	</div>
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	  <% if(user_signed_in?) %>
-	    <p class="navbar-text"><span title="user <%= current_user.id %>"><%= current_user.email %></span></p>
+	  <ul class="nav navbar-nav">
+	    <li class><a href="/">BoostMySpirit</a></li>
+	    <% if(user_signed_in?) %>
+	    <li class><p class="navbar-text"><span title="user <%= current_user.id %>"><%= current_user.email %></span></p></li>
 	  <% end %>
+	  </ul>
 	  <% if(user_signed_in?) %>
 	  <ul class="nav navbar-nav navbar-right">
             <li><%= link_to('Se déconnecter', destroy_user_session_path, :method => :delete) %></li>

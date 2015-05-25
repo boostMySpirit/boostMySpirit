@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root 'welcome#index'
+  HighVoltage.configure do |config|
+    config.layout = false
+    config.home_page = 'home'
+  end
+
+  get 'welcome', to: 'welcome#index'
 
   authenticate :user do
     resources :periodic_events do

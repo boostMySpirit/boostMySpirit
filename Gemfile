@@ -51,3 +51,5 @@ gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.4'
 
 gem 'awesome_print'
+
+gem 'high_voltage'
