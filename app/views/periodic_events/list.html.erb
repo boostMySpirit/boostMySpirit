@@ -12,8 +12,11 @@
 	<div class="row">
 	  <% logger.ap periodic_event.next_date %>
 	  <% if(periodic_event.next_date.to_date == Time.now.to_date) %>
-	    <div class="col-md-4">
+	    <div class="col-md-6">
 	      Rendez-vous aujourd'hui à <%= periodic_event.start.strftime('%H:%M') %>
+	      <% if(Time.now < periodic_event.next_date) %>
+	      (dans <%= time_ago_in_words(periodic_event.next_date) %>)
+	      <% end %>
 	    </div>
 	  <% else %>
 	    <div class="col-md-4">
